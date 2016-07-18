@@ -1,0 +1,27 @@
+{
+  "name": "shorturl",
+  "version": "1.0.0",
+  "description": "url shortener",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kire73/shorturl.git"
+  },
+  "keywords": [
+    "url",
+    "shortener",
+    "microservice"
+  ],
+  "author": "kire73",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kire73/shorturl/issues"
+  },
+  "homepage": "https://github.com/kire73/shorturl#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
