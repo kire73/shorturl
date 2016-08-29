@@ -1,0 +1,72 @@
+
+ 
+ 
+ 
+ /*
+app.get('/new/:url*', function (req, res) {
+    var taken = req.params['url'] + req.params[0];
+/*      UrlShorter.getShortUrl(taken);
+    UrlShorter.then(function(data){
+        console.log('getShortUrl success = ', data);
+    });
+    UrlShorter.fail(function(err){
+        console.log('getShortUrl fail err = ', err);
+    }); 
+
+
+
+short.connect('mongodb://localhost/short');
+ 
+short.connection.on('error', function(error) {
+  throw new Error(error);
+});
+
+shortURLPromise = short.generate({
+  URL : taken
+});
+
+listURLsPromise = short.list();
+
+shortURLPromise.then(function(mongodbDoc) {
+  console.log('>> created short URL:');
+  console.log(mongodbDoc);
+  console.log('>> retrieving short URL: %s', mongodbDoc.hash);
+  short.retrieve(mongodbDoc.hash).then(function(result) {
+    console.log('>> retrieve result:');
+    console.log(result);
+    process.exit(0);
+  }, function(error) {
+    if (error) {
+      throw new Error(error);
+    }
+  });
+}, function(error) {
+  if (error) {
+    throw new Error(error);
+  }
+});
+
+listURLsPromise.then(function(URLsDocument) {
+  console.log('>> listing (%d) Shortened URLS:', URLsDocument.length);
+  console.log(URLsDocument);
+  process.exit(0);
+}, function(error) {
+  if (error) {
+    throw new Error(error);
+  }
+});
+
+  res.send(taken);
+});
+*/
+/*
+app.listen(8080, function () {
+  console.log('App open on port 8080:');
+});
+
+*/
+
+/*
+var server = http.createServer();
+server.listen();
+*/
