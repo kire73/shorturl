@@ -1,0 +1,3 @@
+worker: mongod --smallfiles
+worker: mongo -use url_shortener
+web: node app.js
