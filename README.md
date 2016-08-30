@@ -1,22 +1,16 @@
+URL Shortener app for FCC basejump challenge
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+Created based on this tutorial:
 
+https://coligo.io/create-url-shortener-with-node-express-mongo/
 
-Welcome to your Node.js project on Cloud9 IDE!
+!!In progess!! to also meet requirements for User Stories based on this example:
 
-This chat example showcases how to use `socket.io` with a static `express` server.
+https://little-url.herokuapp.com/
 
-## Running the server
+!!In progress!! to run on heroku via:
 
-1) Open `server.js` and start the app by clicking on the "Run" button in the top menu.
+https://git.heroku.com/shortyourl.git
+or
+https://shortyourl.herokuapp.com/
 
-2) Alternatively you can launch the app from the Terminal:
-
-    $ node server.js
-
-Once the server is running, open the project in the shape of 'https://projectname-username.c9.io/'. As you enter your name, watch the Users list (on the left) update. Once you press Enter or Send, the message is shared with all connected clients.
