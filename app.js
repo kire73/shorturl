@@ -1,9 +1,18 @@
+require('dotenv').config();
+
+var db = require('db');
+db.connect({
+  url: process.env.DB_URL,
+  appUrl: process.env.APP_URL,
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS
+});
+
 // URL Shortener
 var express = require('express');
 var app = express();
 var path = require('path');
-var taken = '';
-
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');
@@ -24,6 +33,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Working Alt method for address only submission
 /*
+
+var taken = '';
+
 app.route('/new')
   .get('/new/:url*', function (req, res, next) {
     taken = req.params['url'] + req.params[0];
