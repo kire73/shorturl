@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-var db = require('db');
+var db = require('mongodb');
 db.connect({
   url: process.env.DB_URL,
   appUrl: process.env.APP_URL,
