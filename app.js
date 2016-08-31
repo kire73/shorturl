@@ -21,8 +21,10 @@ var Url = require('./models/url');
  
  // Current via https://coligo.io/create-url-shortener-with-node-express-mongo/
 
+// for c9 use : 'mongodb://' + config.db.host + '/' + config.db.name
+
 // create a connection to our MongoDB
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+mongoose.connect(process.env.DB_URL);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -166,6 +168,6 @@ app.post('/api/shorten', function(req, res){
 // port: process.env.PORT for heroku
  
  app.listen(process.env.PORT, function () {
-  console.log('App open on port 8080:');
+  console.log('App open:');
   
 });
