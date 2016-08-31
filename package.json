@@ -26,6 +26,7 @@
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "mongoose": "^4.5.10",
+    "mongodb": "^2.6.12",
     "node-url-shorter": "0.0.4",
     "short": "^2.6.0"
   }
