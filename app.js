@@ -24,7 +24,6 @@ var Url = require('./models/url');
 // for c9 use : 'mongodb://' + config.db.host + '/' + config.db.name
 
 // create a connection to our MongoDB
-console.log(process.env.DB_URL);
 mongoose.connect(process.env.DB_URL);
 
 app.use(bodyParser.json());
@@ -169,6 +168,6 @@ app.post('/api/shorten', function(req, res){
 // port: process.env.PORT for heroku
  
  app.listen(process.env.PORT, function () {
-  console.log('App open:');
+  console.log('App open on port' + process.env.PORT + ':');
   
 });
