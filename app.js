@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({silent: true});
 
 var db = require('mongodb');
 db.connect({
@@ -168,6 +168,6 @@ app.post('/api/shorten', function(req, res){
 // port: process.env.PORT for heroku
  
  app.listen(process.env.PORT, function () {
-  console.log('App open on port' + process.env.PORT + ':');
+  console.log('App open on port ' + process.env.PORT + ':');
   
 });
