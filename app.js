@@ -24,6 +24,7 @@ var Url = require('./models/url');
 // for c9 use : 'mongodb://' + config.db.host + '/' + config.db.name
 
 // create a connection to our MongoDB
+console.log(process.env.DB_URL);
 mongoose.connect(process.env.DB_URL);
 
 app.use(bodyParser.json());
