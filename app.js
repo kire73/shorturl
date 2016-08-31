@@ -162,8 +162,10 @@ app.post('/api/shorten', function(req, res){
 
 });
 
+// port: 8080 to run on c9
+// port: process.env.PORT for heroku
  
- app.listen(8080, function () {
+ app.listen(process.env.PORT, function () {
   console.log('App open on port 8080:');
   
 });
