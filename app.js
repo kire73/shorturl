@@ -112,7 +112,6 @@ app.get('/new/:url*', function (req, res) {
   */
   console.log("User submitted new url: " + taken);
   if(res){
-    console.log(JSON.strigify(res));
     res.send(taken);
   }
 });
