@@ -85,7 +85,7 @@ app.route('/new')
 */
 
 
-
+/* global $ */
 
 
 // tell Express to serve files from our public folder
@@ -96,7 +96,20 @@ app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-
+app.get('/new/:url*', function (req, res) {
+    var taken = req.params['url'] + req.params[0];
+  $.ajax({
+    url: '/api/shorten',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {url: $(taken).val()},
+    success: function(data){
+        // display the shortened URL to the user that is returned by the server
+        res.send(JSON.stringify(data));
+    }
+  });
+  console.log(res);
+});
 
 
 // POST method for UI
@@ -146,9 +159,6 @@ app.post('/api/shorten', function(req, res){
   var base58Id = req.params.encoded_id;
   var id = base58.decode(base58Id);
   
-  if (base58Id == "new*"){
-    console.log('Found new address: ' + base58Id);
-  }
 
   // check if url already exists in database
   Url.findOne({_id: id}, function (err, doc){
