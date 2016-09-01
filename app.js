@@ -85,7 +85,7 @@ app.route('/new')
 */
 
 
-/* global $ */
+// /* global $ */
 
 
 // tell Express to serve files from our public folder
@@ -98,6 +98,7 @@ app.get('/', function(req, res){
 
 app.get('/new/:url*', function (req, res) {
     var taken = req.params['url'] + req.params[0];
+    /*
   $.ajax({
     url: '/api/shorten',
     type: 'POST',
@@ -108,7 +109,11 @@ app.get('/new/:url*', function (req, res) {
         res.send(JSON.stringify(data));
     }
   });
-  console.log(res);
+  */
+  console.log(taken);
+  if(res){
+    console.log(res);
+  }
 });
 
 
