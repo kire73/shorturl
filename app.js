@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// /* global $ */
+ /* global $ */
 
 
 // tell Express to serve files from public folder
@@ -60,67 +60,6 @@ var options = {
   };
 
 
-app.post('/new/:url*', function (req, res) {
-    var taken = req.params['url'] + req.params[0];
-    
-  var longUrl = taken;
-  var shortUrl = '';
-    // check if url already exists in database
-  mongoose.Promise = global.Promise;
-  Url.findOne({long_url: longUrl}, function (err, doc){
-    if (err){
-          console.log(err);
-        }
-    if (doc){
-      shortUrl = config.webhost + base58.encode(doc._id);
-      res.send({'shortUrl': shortUrl});
-    } else {
-      // The long URL was not found in the long_url field in our urls
-      // collection, so we need to create a new entry:
-      var newUrl = Url({
-        long_url: longUrl
-      });
-
-      // save the new link
-      newUrl.save(function(err, doc) {
-        if (err){
-          console.log(err);
-        }
-        if (doc){
-          console.log(doc);
-        }
-
-        // construct the short URL
-        shortUrl = config.webhost + base58.encode(newUrl._id);
-
-        res.send({'shortUrl': shortUrl});
-        console.log('Saved: ' + shortUrl);
-      });
-    }
-
-  });
-
-  
-  // Check for given url in database
-  
-    // The url was found, display its associated short url
-  
-      // The long URL was not found in the long_url field in our urls
-      // collection, so we need to create a new entry:
-      
-      
-      // save the new link
-      
-      
-        // construct the short URL
-        
-        // display constructed short url
-  console.log("User submitted new url: " + taken + shortUrl);
-  if(res){
-    res.send(shortUrl);
-  }
-  
-});
 
 */
 // POST method for UI
@@ -131,7 +70,9 @@ app.get('/new/:url*', function findNew(req, res, longUrl){
     longUrl = req.params['url'] + req.params[0];
   }
   console.log('found: ' + longUrl);
-  res.send('working on it...');
+  $('#url-field').html(longUrl);
+  $('btn-shorten').trigger('click');
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.post('/api/shorten', function(req, res){
@@ -140,13 +81,6 @@ app.post('/api/shorten', function(req, res){
     console.log('down the rabbit hole');
     res.send('im late im late im late!');
   }
-  /*
-  if (req.params['url']) {
-    longUrl = req.params['url'] + req.params[0];
-  } else { 
-      longUrl = req.body.url;
-  }
-  */
   var shortUrl = '';
 
   // check if url already exists in database
