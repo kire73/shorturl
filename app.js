@@ -77,9 +77,6 @@ app.get('/new/:url*', function findNew(req, res, longUrl){
   }
   console.log('found: ' + longUrl);
   
-  
-  // Pretty sure I've tried this already
-  
   var shortUrl = '';
 
   // check if url already exists in database
@@ -89,7 +86,7 @@ app.get('/new/:url*', function findNew(req, res, longUrl){
         }
     if (doc){
       shortUrl = config.webhost + base58.encode(doc._id);
-      res.send({'shortUrl': shortUrl});
+      res.send({'originalUrl': longUrl,'shortUrl': shortUrl});
     } else {
       // The long URL was not found in the long_url field in our urls
       // collection, so we need to create a new entry:
