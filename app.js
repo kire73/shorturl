@@ -65,13 +65,11 @@ var options = {
 // POST method for UI
 
 
-app.get('/new/:url*', function findNew(req, res, longUrl){
+app.post('/new/:url*', function findNew(req, res, longUrl){
   if (req.params['url'] + req.params[0]){
     longUrl = req.params['url'] + req.params[0];
   }
   console.log('found: ' + longUrl);
-  $('#url-field').html(longUrl);
-  $('btn-shorten').trigger('click');
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
