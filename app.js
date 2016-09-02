@@ -125,8 +125,17 @@ app.post('/new/:url*', function (req, res) {
 */
 // POST method for UI
 
+function findNew (longUrl){
+  app.get('/new/:url*', function(req, res){
+    if (req.params['url'] + req.params[0]){
+      longUrl = req.params['url'] + req.params[0];
+    } else app.next();
+  });
+}
+
 app.post('/api/shorten', function(req, res){
   var longUrl = '';
+  findNew(longUrl);
   if (path=='/new/:url*'){
     console.log('down the rabbit hole');
     res.send('im late im late im late!');
