@@ -46,11 +46,29 @@ app.get('/', function(req, res){
 
 // Alt FCC basejump api method for address only submission
 
+function validate(given){
+  given = given.split('');
+  var taken = [];
+  for (var i = 0; i < 8; i++ ){
+    taken.push(given[i]);
+  }
+  taken = taken.join('');
+  
+if (/https?:\/\//.test(taken)) {
+    console.log("Valid URL");
+} else {
+    console.log("Invalid URL");
+    throw ('URL Must have "http://" or "https://" when using the address bar method');
+}
+}
+
 
 app.get('/new/:url*', function findNew(req, res, longUrl){
   if (req.params['url'] + req.params[0]){
     longUrl = req.params['url'] + req.params[0];
   }
+  validate(longUrl);
+  
   console.log('found: ' + longUrl);
   
   var shortUrl = '';
