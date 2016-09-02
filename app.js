@@ -124,14 +124,14 @@ app.post('/new/:url*', function (req, res) {
 
 */
 // POST method for UI
-
-function findNew (longUrl){
-  app.get('/new/:url*', function(req, res){
-    if (req.params['url'] + req.params[0]){
-      longUrl = req.params['url'] + req.params[0];
-    } else app.next();
-  });
+function findNew(req, res, longUrl){
+  if (req.params['url'] + req.params[0]){
+    longUrl = req.params['url'] + req.params[0];
+  } else app.next();
+  console.log('found: ' + longUrl);
 }
+
+app.get('/new/:url*', findNew());
 
 app.post('/api/shorten', function(req, res){
   var longUrl = '';
