@@ -47,13 +47,8 @@ app.get('/', function(req, res){
 
 
 // Working Alt method for address only submission
-
-
-app.get('/new/:url*', function (req, res) {
-    var taken = req.params['url'] + req.params[0];
-    /*  Reference mirror of shorten.js
-    
-  $.ajax({
+/*
+var options = {
     url: '/api/shorten',
     type: 'POST',
     dataType: 'JSON',
@@ -62,8 +57,12 @@ app.get('/new/:url*', function (req, res) {
         // display the shortened URL to the user that is returned by the server
         res.send(JSON.stringify(data));
     }
-  });
-  */
+  };
+
+
+app.post('/new/:url*', function (req, res) {
+    var taken = req.params['url'] + req.params[0];
+    
   var longUrl = taken;
   var shortUrl = '';
     // check if url already exists in database
@@ -83,9 +82,12 @@ app.get('/new/:url*', function (req, res) {
       });
 
       // save the new link
-      newUrl.save(function(err) {
+      newUrl.save(function(err, doc) {
         if (err){
           console.log(err);
+        }
+        if (doc){
+          console.log(doc);
         }
 
         // construct the short URL
@@ -120,11 +122,21 @@ app.get('/new/:url*', function (req, res) {
   
 });
 
-
+*/
 // POST method for UI
 
 app.post('/api/shorten', function(req, res){
-  var longUrl = req.body.url;
+  var longUrl = '';
+  if (path=='/new'){
+    console.log('down the rabbit hole');
+  }
+  /*
+  if (req.params['url']) {
+    longUrl = req.params['url'] + req.params[0];
+  } else { 
+      longUrl = req.body.url;
+  }
+  */
   var shortUrl = '';
 
   // check if url already exists in database
