@@ -65,7 +65,7 @@ var options = {
 // POST method for UI
 
 
-app.post('/new/:url*', function findNew(req, res, longUrl){
+app.get('/new/:url*', function findNew(req, res, longUrl){
   if (req.params['url'] + req.params[0]){
     longUrl = req.params['url'] + req.params[0];
   }
