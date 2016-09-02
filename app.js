@@ -27,6 +27,7 @@ var Url = require('./models/url');
 
 // create a connection to our MongoDB
 mongoose.connect(process.env.DB_URL);
+mongoose.Promise = global.Promise;
 
 // for c9 use : 'mongodb://' + config.db.host + '/' + config.db.name
 
@@ -34,7 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
- /* global $ */
+// /* global $ */
 
 
 // tell Express to serve files from public folder
@@ -62,16 +63,62 @@ var options = {
 
 
 */
-// POST method for UI
+
+
+
+
+
+
 
 
 app.get('/new/:url*', function findNew(req, res, longUrl){
   if (req.params['url'] + req.params[0]){
-    longUrl = req.params['url'] + req.params[0];
+    var longUrl = req.params['url'] + req.params[0];
   }
   console.log('found: ' + longUrl);
   res.sendFile(path.join(__dirname, 'index.html'));
-});
+  
+  
+  // Pretty sure I've tried this already
+  
+  var shortUrl = '';
+
+  // check if url already exists in database
+  Url.findOne({long_url: longUrl}, function (err, doc){
+    if (err){
+          console.log(err);
+        }
+    if (doc){
+      shortUrl = config.webhost + base58.encode(doc._id);
+      res.send({'shortUrl': shortUrl});
+    } else {
+      // The long URL was not found in the long_url field in our urls
+      // collection, so we need to create a new entry:
+      var newUrl = Url({
+        long_url: longUrl
+      });
+
+      // save the new link
+      newUrl.save(function(err) {
+        if (err){
+          console.log(err);
+        }
+
+        // construct the short URL
+        shortUrl = config.webhost + base58.encode(newUrl._id);
+
+        res.send({'shortUrl': shortUrl});
+        console.log('Saved: ' + shortUrl);
+      });
+};
+
+
+
+
+
+// POST method for UI
+
+
 
 app.post('/api/shorten', function(req, res){
   var longUrl = '';
@@ -82,7 +129,6 @@ app.post('/api/shorten', function(req, res){
   var shortUrl = '';
 
   // check if url already exists in database
-  mongoose.Promise = global.Promise;
   Url.findOne({long_url: longUrl}, function (err, doc){
     if (err){
           console.log(err);
