@@ -127,8 +127,9 @@ app.post('/new/:url*', function (req, res) {
 
 app.post('/api/shorten', function(req, res){
   var longUrl = '';
-  if (path=='/new/*'){
+  if (path=='/new/:url*'){
     console.log('down the rabbit hole');
+    res.send('im late im late im late!');
   }
   /*
   if (req.params['url']) {
