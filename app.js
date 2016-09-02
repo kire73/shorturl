@@ -129,8 +129,9 @@ app.post('/new/:url*', function (req, res) {
 app.get('/new/:url*', function findNew(req, res, longUrl){
   if (req.params['url'] + req.params[0]){
     longUrl = req.params['url'] + req.params[0];
-  } else app.next();
+  }
   console.log('found: ' + longUrl);
+  res.send('working on it...');
 });
 
 app.post('/api/shorten', function(req, res){
