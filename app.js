@@ -113,7 +113,7 @@ app.get('/new/:url*', function (req, res) {
         // construct the short URL
         
         // display constructed short url
-  console.log("User submitted new url: " + taken);
+  console.log("User submitted new url: " + taken + shortUrl);
   if(res){
     res.send(taken);
   }
