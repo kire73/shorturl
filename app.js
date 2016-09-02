@@ -19,86 +19,40 @@ var config = require('./config');
 var base58 = require('./base58.js');
 var Url = require('./models/url');
  
- // Current via https://coligo.io/create-url-shortener-with-node-express-mongo/
+ // built following the tutorial @
+ // https://coligo.io/create-url-shortener-with-node-express-mongo/
+ // Working to meet user stories @
+ // https://little-url.herokuapp.com/
 
-// for c9 use : 'mongodb://' + config.db.host + '/' + config.db.name
 
 // create a connection to our MongoDB
 mongoose.connect(process.env.DB_URL);
+
+// for c9 use : 'mongodb://' + config.db.host + '/' + config.db.name
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-
-
-
-// Working Alt method for address only submission
-/*
-
-var taken = '';
-
-app.route('/new')
-  .get('/new/:url*', function (req, res, next) {
-    taken = req.params['url'] + req.params[0];
-    res.send(taken);
-    next();
-  })
-  .post('/api/address', function (req, res) {
-      var longUrl = taken;
-      var shortUrl = '';
-      console.log(longUrl);
-        mongoose.Promise = global.Promise;
-    Url.findOne({long_url: longUrl}, function (err, doc){
-      if (err){
-            console.log(err);
-          }
-      if (doc){
-        shortUrl = config.webhost + base58.encode(doc._id);
-        res.send({'shortUrl': shortUrl});
-      } else {
-        // The long URL was not found in the long_url field in our urls
-        // collection, so we need to create a new entry:
-        var newUrl = Url({
-          long_url: longUrl
-        });
-
-        // save the new link
-        newUrl.save(function(err) {
-          if (err){
-            console.log(err);
-          }
-
-          // construct the short URL
-          shortUrl = config.webhost + base58.encode(newUrl._id);
-
-          res.send({'shortUrl': shortUrl});
-          console.log('Saved: ' + shortUrl);
-        });
-      }
-
-  });
-
-    
-});
-  
-*/
-
-
 // /* global $ */
 
 
-// tell Express to serve files from our public folder
+// tell Express to serve files from public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
-//   route to serve up the homepage (index.html)
+//   route to serve the homepage
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+
+// Working Alt method for address only submission
+
+
 app.get('/new/:url*', function (req, res) {
     var taken = req.params['url'] + req.params[0];
-    /*
+    /*  Reference mirror of shorten.js
+    
   $.ajax({
     url: '/api/shorten',
     type: 'POST',
@@ -110,10 +64,60 @@ app.get('/new/:url*', function (req, res) {
     }
   });
   */
+  var longUrl = taken;
+  var shortUrl = '';
+    // check if url already exists in database
+  mongoose.Promise = global.Promise;
+  Url.findOne({long_url: longUrl}, function (err, doc){
+    if (err){
+          console.log(err);
+        }
+    if (doc){
+      shortUrl = config.webhost + base58.encode(doc._id);
+      res.send({'shortUrl': shortUrl});
+    } else {
+      // The long URL was not found in the long_url field in our urls
+      // collection, so we need to create a new entry:
+      var newUrl = Url({
+        long_url: longUrl
+      });
+
+      // save the new link
+      newUrl.save(function(err) {
+        if (err){
+          console.log(err);
+        }
+
+        // construct the short URL
+        shortUrl = config.webhost + base58.encode(newUrl._id);
+
+        res.send({'shortUrl': shortUrl});
+        console.log('Saved: ' + shortUrl);
+      });
+    }
+
+  });
+
+  
+  // Check for given url in database
+  
+    // The url was found, display its associated short url
+  
+      // The long URL was not found in the long_url field in our urls
+      // collection, so we need to create a new entry:
+      
+      
+      // save the new link
+      
+      
+        // construct the short URL
+        
+        // display constructed short url
   console.log("User submitted new url: " + taken);
   if(res){
     res.send(taken);
   }
+  
 });
 
 
