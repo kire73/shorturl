@@ -76,7 +76,6 @@ app.get('/new/:url*', function findNew(req, res, longUrl){
     longUrl = req.params['url'] + req.params[0];
   }
   console.log('found: ' + longUrl);
-  res.sendFile(path.join(__dirname, 'index.html'));
   
   
   // Pretty sure I've tried this already
