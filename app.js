@@ -73,7 +73,7 @@ var options = {
 
 app.get('/new/:url*', function findNew(req, res, longUrl){
   if (req.params['url'] + req.params[0]){
-    var longUrl = req.params['url'] + req.params[0];
+    longUrl = req.params['url'] + req.params[0];
   }
   console.log('found: ' + longUrl);
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -110,8 +110,11 @@ app.get('/new/:url*', function findNew(req, res, longUrl){
         res.send({'shortUrl': shortUrl});
         console.log('Saved: ' + shortUrl);
       });
-};
+    }
 
+  });
+
+});
 
 
 
