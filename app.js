@@ -35,9 +35,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// /* global $ */
-
-
 // tell Express to serve files from public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -47,28 +44,7 @@ app.get('/', function(req, res){
 });
 
 
-// Working Alt method for address only submission
-/*
-var options = {
-    url: '/api/shorten',
-    type: 'POST',
-    dataType: 'JSON',
-    data: {url: $(taken).val()},
-    success: function(data){
-        // display the shortened URL to the user that is returned by the server
-        res.send(JSON.stringify(data));
-    }
-  };
-
-
-
-*/
-
-
-
-
-
-
+// Alt FCC basejump api method for address only submission
 
 
 app.get('/new/:url*', function findNew(req, res, longUrl){
@@ -103,7 +79,7 @@ app.get('/new/:url*', function findNew(req, res, longUrl){
         // construct the short URL
         shortUrl = config.webhost + base58.encode(newUrl._id);
 
-        res.send({'shortUrl': shortUrl});
+        res.send({'original_url': longUrl,'shortUrl': shortUrl});
         console.log('Saved: ' + shortUrl);
       });
     }
@@ -112,19 +88,11 @@ app.get('/new/:url*', function findNew(req, res, longUrl){
 
 });
 
-
-
-
-// POST method for UI
-
+// Alt POST method for UI via coligo
 
 
 app.post('/api/shorten', function(req, res){
-  var longUrl = '';
-  if (path=='/new/:url*'){
-    console.log('down the rabbit hole');
-    res.send('im late im late im late!');
-  }
+  var longUrl = req.body.url;
   var shortUrl = '';
 
   // check if url already exists in database
@@ -135,9 +103,9 @@ app.post('/api/shorten', function(req, res){
     if (doc){
       shortUrl = config.webhost + base58.encode(doc._id);
       res.send({'shortUrl': shortUrl});
-    } else {
-      // The long URL was not found in the long_url field in our urls
-      // collection, so we need to create a new entry:
+    } else { // long URL not found in long_url field in urls collection
+      
+      // create a new entry:
       var newUrl = Url({
         long_url: longUrl
       });
