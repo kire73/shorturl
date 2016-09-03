@@ -46,7 +46,7 @@ app.get('/', function(req, res){
 
 // Alt FCC basejump api method for address only submission
 
-function validate(given){
+function validate(given, err){
   given = given.split('');
   var taken = [];
   for (var i = 0; i < 8; i++ ){
@@ -58,7 +58,7 @@ if (/https?:\/\//.test(taken)) {
     console.log("Valid URL");
 } else {
     console.log("Invalid URL");
-    throw ('URL Must have "http://" or "https://" when using the address bar method');
+    throw ('URL Must have "http://" or "https://" when using the address bar method' + err);
 }
 }
 
